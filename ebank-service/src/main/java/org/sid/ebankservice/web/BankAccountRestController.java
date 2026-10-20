@@ -1,5 +1,6 @@
 package org.sid.ebankservice.web;
 
+import org.sid.ebankservice.clients.CustomerRestClient;
 import org.sid.ebankservice.entities.BankAccount;
 import org.sid.ebankservice.repository.BankAccountRepository;
 import org.springframework.web.bind.annotation.*;
@@ -13,20 +14,28 @@ import java.util.UUID;
 public class BankAccountRestController {
 
     private final BankAccountRepository bankAccountRepository;
+    private final CustomerRestClient customerRestClient;
 
-    public BankAccountRestController(BankAccountRepository bankAccountRepository) {
+    public BankAccountRestController(BankAccountRepository bankAccountRepository,
+                                     CustomerRestClient customerRestClient) {
         this.bankAccountRepository = bankAccountRepository;
+        this.customerRestClient = customerRestClient;
     }
 
     @GetMapping("/accounts")
     public List<BankAccount> accounts() {
-        return bankAccountRepository.findAll();
+        List<BankAccount> accounts = bankAccountRepository.findAll();
+        accounts.forEach(account ->
+                account.setCustomer(customerRestClient.findCustomerById(account.getCustomerId())));
+        return accounts;
     }
 
     @GetMapping("/accounts/{id}")
     public BankAccount accountById(@PathVariable String id) {
-        return bankAccountRepository.findById(id)
+        BankAccount bankAccount = bankAccountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account " + id + " not found"));
+        bankAccount.setCustomer(customerRestClient.findCustomerById(bankAccount.getCustomerId()));
+        return bankAccount;
     }
 
     @PostMapping("/accounts")
