@@ -112,4 +112,4 @@ La collection Postman est dans le dossier `postman/`.
 
 ## Réalisé par
 
-Hanae - EMSI
+Hanae Bouichnad · Élève ingénieure en 5ème année, Développement Digital et Systèmes d'Information (EMSI)
