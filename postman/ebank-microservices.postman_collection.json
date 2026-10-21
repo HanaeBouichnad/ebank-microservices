@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "ebank-microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Liste des clients (gateway)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8888/api/customers"
+      }
+    },
+    {
+      "name": "Client par id (gateway)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8888/api/customers/1"
+      }
+    },
+    {
+      "name": "Ajouter un client (gateway)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Omar\",\n  \"lastName\": \"Tazi\",\n  \"email\": \"omar@gmail.com\"\n}"
+        },
+        "url": "http://localhost:8888/api/customers"
+      }
+    },
+    {
+      "name": "Liste des comptes (gateway)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8888/api/accounts"
+      }
+    },
+    {
+      "name": "Ajouter un compte (gateway)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"balance\": 12000,\n  \"currency\": \"MAD\",\n  \"type\": \"CURRENT_ACCOUNT\",\n  \"customerId\": 1\n}"
+        },
+        "url": "http://localhost:8888/api/accounts"
+      }
+    },
+    {
+      "name": "Comptes via route dynamique",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8888/EBANK-SERVICE/api/accounts"
+      }
+    }
+  ]
+}
